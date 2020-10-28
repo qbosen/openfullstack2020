@@ -1,10 +1,8 @@
 import ReactDOM from 'react-dom'
 
 const Header = (props) => (<h1>{props.course}</h1>)
-const Content = (props) => {
-    let func = (prop) => <p>{prop.part} {prop.exercises}</p>
-    return props.contents.map(func)
-}
+const Part = (props) => (<p>{props.part} {props.exercises}</p>)
+const Content = (props) => props.contents.map(Part)
 const Total = (props) => {
     let sum = 0
     props.exercises.forEach(it => sum += it)
