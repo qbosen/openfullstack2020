@@ -1,0 +1,11 @@
+@startuml
+browser -> server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+note over server
+save the note
+end note
+server --> browser: 201[CREATED]
+
+note over browser
+browser execute redrawNotes and display
+end note
+@enduml
