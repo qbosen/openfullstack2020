@@ -2,7 +2,11 @@ import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 
 const Button = ({handler, text}) => (<button onClick={handler}>{text}</button>)
-const Statistic = ({key, value}) => (<span>{key} {value}<br/></span>)
+const Statistic = ({key, value}) => (
+    <tr>
+        <td>{key}</td>
+        <td>{value}</td>
+    </tr>)
 
 
 const Statistics = ({statistics}) => {
@@ -14,7 +18,11 @@ const Statistics = ({statistics}) => {
     return (
         <div>
             <h1>statistics</h1>
-            {statistics.map(Statistic)}
+            <table>
+                <tbody>
+                {statistics.map(Statistic)}
+                </tbody>
+            </table>
         </div>
     )
 }
