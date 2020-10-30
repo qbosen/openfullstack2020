@@ -1,4 +1,5 @@
 import React from 'react'
+import Weather from "./Weather";
 
 const Countries = ({countries, onSelect}) => {
     if (countries.length > 10) return (<div>Too many matches,specify another filter</div>)
@@ -23,6 +24,8 @@ const Country = ({country}) => (
             {country.languages.map(it => <li key={it.name}>{it.name}</li>)}
         </ul>
         <img src={country.flag} height='100px' alt='flag' border='1px'/>
+
+        <Weather country={country}/>
     </div>
 )
 
