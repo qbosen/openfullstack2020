@@ -30,6 +30,11 @@ const App = () => {
     const onFilterChange = (event) => {
         setFilter(event.target.value)
     }
+    const onRemove = (person) => (_) => {
+        if (window.confirm(`Delete ${person.name}`))
+            personsService.remove(person.id).then(_ => setPersons(persons.filter(it => it.id !== person.id)))
+    }
+
     useEffect(() => {
         personsService.getAll().then(data => setPersons(data))
     }, [])
@@ -43,7 +48,7 @@ const App = () => {
                         onNameChange={onNameChange} newName={newName}
                         onFormSubmit={onFormSubmit}/>
             <h3>Numbers</h3>
-            <Persons persons={shownPersons}/>
+            <Persons persons={shownPersons} onRemove={onRemove}/>
         </div>
     )
 }
