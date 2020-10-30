@@ -15,9 +15,21 @@ const App = () => {
     const onNumberChange = (event) => setNewNumber(event.target.value)
     const onFormSubmit = (event) => {
         event.preventDefault()
-        if (persons.find(it => it.name === newName)) {
-            alert(`${newName} is already added to phonebook`)
+
+        const old = persons.find(it => it.name === newName);
+        if (old) {
+            if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+                const person = {...old, name: newName, number: newNumber}
+                personsService.update(old.id, person)
+                    .then(_ => {
+                        setPersons(persons.map(it => it.id !== old.id ? it : person))
+                        setNewNumber('')
+                        setNewName('')
+                    })
+            }
+
         } else {
+            // do add
             const person = {name: newName, number: newNumber}
             personsService.create(person)
                 .then(it => {
