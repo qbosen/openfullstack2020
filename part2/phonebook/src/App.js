@@ -10,8 +10,11 @@ const App = () => {
     const onChange = (event) => setNewName(event.target.value)
     const onSubmit = (event) => {
         event.preventDefault()
-        console.log(event.target)
-        setPersons([...persons, {name: newName}])
+        if (persons.find(it => it.name === newName)) {
+            alert(`${newName} is already added to phonebook`)
+        } else {
+            setPersons([...persons, {name: newName}])
+        }
     }
 
 
