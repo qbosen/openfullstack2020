@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
-import Person from './components/Person.js'
+import Filter from "./components/Filter";
+import PersonForm from "./components/PersonForm";
+import Persons from "./components/Person.js";
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -15,7 +17,7 @@ const App = () => {
 
     const onNameChange = (event) => setNewName(event.target.value)
     const onNumberChange = (event) => setNewNumber(event.target.value)
-    const onSubmit = (event) => {
+    const onFormSubmit = (event) => {
         event.preventDefault()
         if (persons.find(it => it.name === newName)) {
             alert(`${newName} is already added to phonebook`)
@@ -23,32 +25,21 @@ const App = () => {
             setPersons([...persons, {name: newName, number: newNumber}])
         }
     }
-    const refresh = (event) => {
+    const onFilterChange = (event) => {
         setFilter(event.target.value)
         setShownPersons([...persons.filter(it => it.name.toLowerCase().startsWith(event.target.value))])
-        console.log(shownPersons)
     }
 
     return (
         <div>
             <h2>Phonebook</h2>
-            <div>
-                filter shown with <input onChange={refresh} value={filter}/>
-            </div>
-            <h2>add a new</h2>
-            <form onSubmit={onSubmit}>
-                <div>
-                    name: <input onChange={onNameChange} value={newName}/>
-                </div>
-                <div>
-                    number: <input onChange={onNumberChange} value={newNumber}/>
-                </div>
-                <div>
-                    <button type="submit">add</button>
-                </div>
-            </form>
-            <h2>Numbers</h2>
-            {shownPersons.map(it => <Person key={it.name} person={it}/>)}
+            <Filter onFilterChange={onFilterChange} filter={filter}/>
+            <h3>add a new</h3>
+            <PersonForm onNumberChange={onNumberChange} newNumber={newNumber}
+                        onNameChange={onNameChange} newName={newName}
+                        onFormSubmit={onFormSubmit}/>
+            <h3>Numbers</h3>
+            <Persons persons={shownPersons}/>
         </div>
     )
 }
