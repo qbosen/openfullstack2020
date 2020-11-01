@@ -10,7 +10,7 @@ const App = () => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
     const [filter, setFilter] = useState('')
-    const [message, setMessage] = useState(null)
+    const [message, setMessage] = useState([])
     const shownPersons = [...persons.filter(it => it.name.toLowerCase().startsWith(filter.toLowerCase()))]
 
     const onNameChange = (event) => setNewName(event.target.value)
@@ -27,8 +27,16 @@ const App = () => {
                         setPersons(persons.map(it => it.id !== old.id ? it : person))
                         setNewNumber('')
                         setNewName('')
-                        setMessage(`Update ${newName}`)
-                        setTimeout(() => setMessage(null), 5000)
+                        setMessage([{message: `Update ${newName}`, success: true}])
+                        setTimeout(() => setMessage([]), 5000)
+                    })
+                    .catch(error => {
+                        setMessage([{
+                            message: `Information of ${newName} has already been removed from server`,
+                            success: false
+                        }])
+                        setPersons(persons.filter(it => it.id !== old.id))
+                        setTimeout(() => setMessage([]), 5000)
                     })
             }
 
@@ -40,8 +48,8 @@ const App = () => {
                     setPersons(persons.concat(it))
                     setNewNumber('')
                     setNewName('')
-                    setMessage(`Add ${newName}`)
-                    setTimeout(() => setMessage(null), 5000)
+                    setMessage([{message: `Add ${newName}`, success: true}])
+                    setTimeout(() => setMessage([]), 5000)
                 })
         }
     }
