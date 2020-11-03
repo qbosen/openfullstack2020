@@ -16,3 +16,6 @@ npm install json-server --save-dev
 // add to package.json
 "server": "json-server -p3001 --watch db.json"
 ```
+
+## part3
+`git submodule add -b master --name phonebook-bg https://github.com/qbosen/openfullstack2020-heroku.git phonebook-bg`

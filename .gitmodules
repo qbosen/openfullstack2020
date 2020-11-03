@@ -1,0 +1,4 @@
+[submodule "phonebook-bg"]
+	path = part3/phonebook-bg
+	url = https://github.com/qbosen/openfullstack2020-heroku.git
+	branch = master
